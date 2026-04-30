@@ -1,0 +1,875 @@
+<!DOCTYPE html><html lang="hu"><head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Forray Erika — Life, Business &amp; Karriercoach</title>
+<meta name="description" content="Objektív személyiségelemzés és kísérő coaching egyéneknek és szervezeteknek. Segítek tisztán látni magadról — Forray Erika.">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;circle cx='32' cy='32' r='32' fill='%23ffffff'/&gt;&lt;text x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='28' font-weight='500' fill='%232B5968'&gt;FE&lt;/text&gt;&lt;/svg&gt;">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&amp;family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F9F5F2;
+    --bg-2: #EDE8E3;
+    --card: #FFFFFF;
+    --petrol: #2B5968;
+    --steel: #97B5C2;
+    --blush: #C5DCEC;
+    --rose: #569AD5;
+    --taupe: #CABAB1;
+    --ink: #1C2B30;
+    --muted: #6B7B82;
+    --hair: rgba(43,89,104,0.12);
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; }
+
+  h1 {
+    font-size: clamp(44px, 7vw, 60px);
+    line-height: 1.1;
+    font-weight: 300;
+    letter-spacing: -1px;
+    color: var(--ink);
+    margin: 0;
+  }
+  h2 {
+    font-size: clamp(30px, 4.5vw, 40px);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    margin: 0 0 8px;
+    line-height: 1.15;
+  }
+  h3 {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  p { margin: 0 0 18px; color: var(--muted); }
+  a { color: inherit; text-decoration: none; }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--taupe);
+    font-weight: 600;
+  }
+  .eyebrow.wide { letter-spacing: 3px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Scroll progress ---------- */
+  .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+    background: var(--petrol); z-index: 100;
+    transition: width 0.1s linear;
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+    padding: 22px 0;
+    background: transparent;
+    transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), padding 0.3s var(--ease);
+  }
+  .nav.scrolled {
+    background: #ffffffee;
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    box-shadow: 0 4px 28px rgba(43,89,104,0.07);
+    padding: 14px 0;
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+  }
+  .brand {
+    display: inline-flex; align-items: center;
+    height: 36px;
+  }
+  .brand img {
+    height: 100%; width: auto; display: block;
+    object-fit: contain;
+  }
+  .nav.scrolled .brand { height: 30px; transition: height 0.3s var(--ease); }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--ink); font-weight: 500;
+    position: relative; padding: 6px 0;
+    transition: color 0.3s var(--ease);
+  }
+  .nav-links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1px; background: var(--rose); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s var(--ease);
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--petrol); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+  .hamburger {
+    display: none; background: none; border: 0; cursor: pointer; padding: 8px;
+  }
+  .hamburger span {
+    display: block; width: 26px; height: 1.5px; background: var(--petrol);
+    margin: 6px 0; transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  }
+  .mobile-overlay {
+    position: fixed; inset: 0; background: #ffffff; z-index: 95;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 32px; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
+  }
+  .mobile-overlay.open { opacity: 1; pointer-events: auto; }
+  .mobile-overlay a {
+    font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--ink);
+  }
+  .mobile-overlay .close {
+    position: absolute; top: 24px; right: 28px; background: none; border: 0;
+    color: var(--petrol); font-size: 28px; cursor: pointer;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 36px; border-radius: 50px;
+    font-family: 'Spectral', Georgia, serif; font-size: 16px; font-weight: 500;
+    letter-spacing: 0.4px; cursor: pointer; border: 1.5px solid transparent;
+    transition: transform 0.4s var(--ease), background 0.4s var(--ease),
+                box-shadow 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .btn-primary {
+    background: var(--petrol); color: white;
+    box-shadow: 0 6px 18px rgba(43,89,104,0.18);
+  }
+  .btn-primary:hover {
+    background: #20454F; transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(43,89,104,0.28);
+  }
+  .btn-secondary {
+    border-color: var(--petrol); color: var(--petrol); background: transparent;
+  }
+  .btn-secondary:hover {
+    background: var(--petrol); color: white; transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(43,89,104,0.18);
+  }
+
+  /* ---------- Section primitives ---------- */
+  section { position: relative; padding: 140px 0; overflow: hidden; }
+  .section-head { margin-bottom: 56px; position: relative; }
+  .section-head .eyebrow { display: block; margin-bottom: 18px; }
+  .accent-line {
+    display: block; width: 0; height: 2px; background: var(--rose);
+    margin-top: 18px; transition: width 1s var(--ease);
+  }
+  .reveal .accent-line { width: 56px; }
+
+  /* ---------- Animations ---------- */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .fade-up.reveal { opacity: 1; transform: none; }
+  .slide-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .slide-left.reveal { opacity: 1; transform: none; }
+  .stagger > * { transition-delay: 0ms; }
+
+  /* ---------- Decorative blobs ---------- */
+  .blob { position: absolute; pointer-events: none; z-index: 0; }
+  .blob svg { display: block; width: 100%; height: 100%; }
+
+  /* ---------- HERO ---------- */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 140px 0 80px;
+  }
+  #hero .blob-1 {
+    top: 0; right: -60px; bottom: 0;
+    width: min(620px, 55vw); height: auto;
+    opacity: 0.95;
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0%, black 14%, black 55%, rgba(0,0,0,0.55) 80%, transparent 100%),
+      linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 18%, black 38%, black 100%);
+            mask-image:
+      linear-gradient(to bottom, transparent 0%, black 14%, black 55%, rgba(0,0,0,0.55) 80%, transparent 100%),
+      linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 18%, black 38%, black 100%);
+    -webkit-mask-repeat: no-repeat, no-repeat;
+            mask-repeat: no-repeat, no-repeat;
+    -webkit-mask-size: 100% 100%, 100% 100%;
+            mask-size: 100% 100%, 100% 100%;
+    -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+  }
+  #hero .blob-1 img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    display: block;
+  }
+  #hero .blob-2 { bottom: -120px; left: -120px; width: 480px; height: 480px; opacity: 0.15; }
+  .hero-grid { position: relative; z-index: 1; max-width: 640px; }
+  .hero-eyebrow { letter-spacing: 3px; }
+  .hero-h1 { margin: 22px 0 0; }
+  .hero-h1 .line { display: block; }
+  .hero-sub {
+    font-size: 19px; color: var(--muted); max-width: 500px;
+    margin: 28px 0 40px; line-height: 1.65; font-weight: 300;
+  }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-line { display: block; width: 56px; height: 1.5px; background: var(--rose); margin-top: 24px; }
+
+  .scroll-indicator {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 56px; background: linear-gradient(to bottom, transparent, var(--rose));
+    z-index: 1;
+  }
+  .scroll-indicator::after {
+    content: ""; position: absolute; left: -3px; top: 0; width: 7px; height: 14px;
+    background: var(--rose); border-radius: 4px; opacity: 0.7;
+    animation: pulse 2s var(--ease) infinite;
+  }
+  @keyframes pulse {
+    0% { transform: translateY(0); opacity: 0.2; }
+    50% { transform: translateY(28px); opacity: 0.9; }
+    100% { transform: translateY(56px); opacity: 0; }
+  }
+
+  /* hero text staggered fade in */
+  .hero-anim { opacity: 0; transform: translateY(18px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+  body.loaded .hero-anim { opacity: 1; transform: none; }
+  body.loaded .hero-anim.d1 { transition-delay: 100ms; }
+  body.loaded .hero-anim.d2 { transition-delay: 200ms; }
+  body.loaded .hero-anim.d3 { transition-delay: 300ms; }
+  body.loaded .hero-anim.d4 { transition-delay: 400ms; }
+  body.loaded .hero-anim.d5 { transition-delay: 500ms; }
+
+  /* ---------- SECTION 2 ---------- */
+  /* ---------- SECTION 2 — CORE MESSAGE ---------- */
+  #message { background: #FFFFFF; }
+  #message .blob-1 { top: 80px; right: -180px; width: 520px; height: 520px; opacity: 0.45; }
+  .message-wrap { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+  #message .eyebrow { display: inline-block; margin-bottom: 22px; }
+
+  /* Pull-quote: harmonized voice for „Volt már …" and „Nem, ez nem…" */
+  .lead-italic, .message-wrap .pull-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 3.4vw, 34px);
+    font-style: normal;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.35;
+    margin: 16px 0 32px;
+    letter-spacing: -0.2px;
+  }
+  .message-wrap .pull-line {
+    margin: 32px 0 36px;
+    padding-left: 22px;
+    border-left: 2px solid rgb(86,154,213);
+  }
+
+  /* Body paragraphs in message section — Spectral, slightly tighter rhythm */
+  .message-wrap > p {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.85;
+    color: var(--muted);
+    margin: 0 0 20px;
+  }
+  .message-wrap > p strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .callout {
+    border-left: 3px solid var(--rose); background: #EEF5FB;
+    border-radius: 0 12px 12px 0; padding: 24px 32px; margin: 32px 0;
+    color: var(--ink); font-size: 17px; line-height: 1.7;
+  }
+  .dash-list { list-style: none; padding: 0; margin: 8px 0 32px; }
+  .dash-list li {
+    padding-left: 28px; position: relative; color: var(--muted);
+    margin-bottom: 10px; line-height: 1.7;
+    font-family: 'Spectral', Georgia, serif; font-size: 18px;
+  }
+  .dash-list li::before {
+    content: "—"; position: absolute; left: 0; color: rgb(86,154,213); font-weight: 500;
+  }
+  .closing-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.6vw, 28px);
+    color: var(--petrol); font-style: italic; line-height: 1.4;
+    font-weight: 400;
+    margin-top: 48px; padding-top: 36px;
+    border-top: 1px solid var(--hair);
+  }
+
+  /* ---------- SECTION 3 — TÖRTÉNETEM ---------- */
+  #story { background: var(--bg); }
+  .story-grid {
+    display: grid; grid-template-columns: 55fr 45fr; gap: 80px; align-items: center;
+  }
+  .story-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+    border-top: 1px solid var(--hair); padding-top: 32px;
+  }
+  .stat { flex: 1; position: relative; }
+  .stat + .stat { padding-left: 32px; border-left: 1px solid var(--rose); }
+  .stat .num {
+    font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 400;
+    color: var(--petrol); line-height: 1; margin-bottom: 8px;
+  }
+  .stat .lbl {
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--taupe);
+    font-weight: 600;
+  }
+  .portrait-wrap { position: relative; }
+  .portrait-wrap .blob-bg {
+    position: absolute; inset: -40px -40px -20px 20px; z-index: 0;
+    opacity: 0.45;
+  }
+  .portrait {
+    position: relative; z-index: 1; width: 100%; max-width: 440px; height: auto;
+    border-radius: 20px; display: block; margin-left: auto;
+    box-shadow: 0 12px 48px rgba(43,89,104,0.15);
+    object-fit: cover;
+  }
+
+  /* ---------- SECTION 4 — Cards ---------- */
+  #services { background: #FFFFFF; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .card {
+    background: white; border-radius: 16px; padding: 40px 32px;
+    border-top: 0;
+    box-shadow:
+      0 4px 18px rgba(86,154,213,0.12),
+      0 12px 32px -10px rgba(86,154,213,0.18);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    display: flex; flex-direction: column; gap: 16px;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 8px 24px rgba(86,154,213,0.18),
+      0 22px 50px -12px rgba(86,154,213,0.28);
+  }
+  .pill {
+    align-self: flex-start;
+    font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 50px; font-weight: 600;
+  }
+  .pill.rose { background: var(--blush); color: var(--petrol); }
+  .pill.petrol { background: var(--petrol); color: white; }
+  .pill.taupe { background: var(--taupe); color: white; }
+  .card-icon { color: var(--petrol); }
+  .card p { font-size: 16px; line-height: 1.75; }
+
+  .services-cta {
+    text-align: center; margin-top: 56px;
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+  }
+  .services-cta .ask { font-size: 15px; color: var(--muted); margin: 0; }
+
+  /* ---------- SECTION 5 — Testimonials ---------- */
+  #testimonials { background: var(--bg); }
+  #testimonials .blob-1 { top: 120px; left: -220px; width: 560px; height: 560px; opacity: 0.35; }
+  .t-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 1; }
+  .t-card {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 36px 30px 30px;
+    position: relative;
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), background 0.5s var(--ease);
+    display: flex; flex-direction: column;
+  }
+  .t-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 20px 50px rgba(43,89,104,0.15);
+  }
+  .t-card .quote-mark {
+    position: absolute; top: 18px; right: 24px;
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(86,154,213,0.15);
+    color: rgb(86,154,213);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; line-height: 1; font-weight: 600;
+    padding-bottom: 4px;
+  }
+  .t-quote {
+    font-family: 'Spectral', Georgia, serif;
+    font-style: normal;
+    font-size: 16px; line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 28px;
+    font-weight: 400;
+    flex: 1;
+  }
+  .t-card .meta {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(86,154,213,0.18);
+  }
+  .t-card .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgb(86,154,213) 0%, rgb(120,180,225) 100%);
+    color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 500;
+    flex-shrink: 0;
+  }
+  .t-divider { display: none; }
+  .t-name { font-size: 14px; letter-spacing: 0.4px; text-transform: none; color: var(--petrol); font-weight: 600; }
+  .t-role { font-size: 12px; color: var(--muted); margin-top: 2px; letter-spacing: 0.2px; }
+
+  /* ---------- SECTION 6 — Contact ---------- */
+  #contact { background: var(--petrol); color: white; text-align: center; padding: 140px 0 120px; }
+  #contact .eyebrow { color: var(--steel); }
+  #contact h2 { color: white; font-size: clamp(30px, 4.2vw, 42px); max-width: 760px; margin: 14px auto 22px; line-height: 1.2; font-weight: 300; }
+  .contact-sub { color: var(--steel); font-size: 19px; font-weight: 300; max-width: 560px; margin: 0 auto 56px; }
+  .contact-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    max-width: 720px; margin: 0 auto;
+  }
+  .contact-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px; padding: 32px 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    cursor: pointer;
+    transition: background 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .contact-card:hover { background: rgba(255,255,255,0.14); transform: translateY(-3px); }
+  .contact-card .lbl { font-size: 16px; font-weight: 600; color: white; }
+  .contact-card .sub { font-size: 13px; color: var(--steel); }
+  .contact-closing {
+    font-size: 17px; color: var(--steel); margin: 64px auto 0; max-width: 560px;
+  }
+  .contact-varlak {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: clamp(40px, 6vw, 56px); color: white; margin-top: 18px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: #1C2B30; color: var(--steel); padding: 32px 0;
+    border-top: 1px solid rgba(151,181,194,0.2);
+  }
+  .footer-inner {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    gap: 24px;
+  }
+  .footer-inner .left { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--steel); }
+  .footer-inner .center { text-align: center; font-size: 13px; color: var(--taupe); }
+  .footer-inner .right { text-align: right; display: flex; gap: 18px; justify-content: flex-end; align-items: center; }
+  .footer-inner .right a { color: var(--steel); transition: color 0.3s var(--ease); display: inline-flex; }
+  .footer-inner .right a:hover { color: white; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    section { padding: 100px 0; }
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    .story-grid { grid-template-columns: 1fr; gap: 48px; }
+    .portrait-wrap { order: -1; max-width: 320px; margin: 0 auto; }
+    .portrait { margin: 0 auto; }
+    .cards, .t-cards { grid-template-columns: 1fr; }
+    .story-stats { flex-direction: column; gap: 24px; }
+    .stat + .stat { padding-left: 0; border-left: 0; padding-top: 24px; border-top: 1px solid var(--rose); }
+    .footer-inner { grid-template-columns: 1fr; text-align: center; }
+    .footer-inner .left, .footer-inner .right { text-align: center; }
+    .contact-cards { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 540px) {
+    .container { padding: 0 22px; }
+    section { padding: 80px 0; }
+    h1 { font-size: 42px; }
+    .hero-sub { font-size: 17px; }
+  }
+</style>
+</head>
+<body class="loaded" data-cc-id="cc-1" style="cursor: crosshair; background-color: rgb(212, 232, 240);">
+
+<div class="progress" id="progress" style="width: 0%;"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="brand" aria-label="Forray Erika"><img src="wordmark.png" alt="Forray Erika"></a>
+    <div class="nav-links">
+      <a href="#story" data-target="story">Történetem</a>
+      <a href="#services" data-target="services">Tanácsadás</a>
+      <a href="#testimonials" data-target="testimonials">Vélemények</a>
+      <a href="#contact" data-target="contact">Kapcsolat</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="close" id="mobileClose" aria-label="Bezárás">×</button>
+  <a href="#story" class="m-link">Történetem</a>
+  <a href="#services" class="m-link">Tanácsadás</a>
+  <a href="#testimonials" class="m-link">Vélemények</a>
+  <a href="#contact" class="m-link">Kapcsolat</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blob blob-2">
+    <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#97B5C2" d="M413,141c54,46 88,121 84,194c-4,73 -45,143 -106,184c-61,41 -141,53 -212,30c-71,-23 -132,-81 -154,-153c-22,-72 -5,-159 44,-217c49,-58 130,-87 207,-79c77,8 150,53 137,41Z"></path>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="hero-grid">
+      <span class="eyebrow hero-eyebrow hero-anim d1" style="color: rgb(86, 154, 213)">Life • Business • Karriercoach</span>
+      <h1 class="hero-h1">
+        <span class="line hero-anim d2">Lehet másképp</span>
+        <span class="line hero-anim d3">is működni.</span>
+      </h1>
+      <span class="hero-line hero-anim d4"></span>
+      <p class="hero-sub hero-anim d4">Segítek tisztán látni magadról — objektív személyiségelemzéssel, kísérő coachingon keresztül.</p>
+      <div class="hero-ctas hero-anim d5">
+        <a href="#contact" class="btn btn-primary">Írj most</a>
+        <a href="#message" class="btn btn-secondary">Tudj meg többet</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" aria-hidden="true"></div>
+</section>
+
+<!-- SECTION 2 — CORE MESSAGE -->
+<section id="message">
+  <div class="container">
+    <div class="message-wrap">
+      <span class="eyebrow wide reveal-target slide-left reveal" style="color: rgb(86, 154, 213)">Ismered ezt az érzést?</span>
+      <p class="lead-italic reveal-target fade-up reveal">„Volt már olyan érzésed, hogy nem te vagy rossz helyen… hanem egyszerűen nem érted, mi történik veled?"</p>
+
+      <p class="reveal-target fade-up reveal">Mintha ugyanazokat a köröket futnád. Ugyanazokat a döntéseket hoznád. És mindig ugyanoda érkeznél vissza.</p>
+
+      <p class="pull-line reveal-target fade-up reveal">
+        Nem, ez nem „önismereti hiány". Ez az, amikor nem látod a saját működésedet.
+      </p>
+
+      <p class="reveal-target fade-up reveal">A legtöbb ember itt elkezd podcasteket hallgatni, könyveket olvasni, „ráérezni" dolgokra. Én nem így támogatlak.</p>
+      <p class="reveal-target fade-up reveal">Segítek tisztán látni magadról, magadért. Veled együtt megtaláljuk a kihívásaidat — és az eddig rejtett kincseidet, erőforrásaidat.</p>
+
+      <p class="reveal-target fade-up reveal" style="margin-bottom: 8px;">Objektív személyiségelemzéssel feltérképezzük:</p>
+      <ul class="dash-list reveal-target fade-up reveal">
+        <li style="transition-delay: 0ms;">mit miért csinálsz</li>
+        <li style="transition-delay: 90ms;">hol térsz le újra és újra az önazonos működésedről</li>
+        <li style="transition-delay: 180ms;">és mi az a pont, ahol vissza tudunk irányítani a célod felé</li>
+      </ul>
+
+      <p class="reveal-target fade-up reveal">Ez a térkép nem csak arról szól, hogy jobban érezd magad a bőrödben. Hanem arról is, hogy tisztábban lásd a döntéseidet — a munkádban, a karrieredben, a magánéletedben.</p>
+
+      <p class="reveal-target fade-up reveal"><strong>Nem véleményt kapsz. Nem tanácsot.</strong><br>Egy pontos térképet saját magadról.</p>
+
+      <p class="reveal-target fade-up reveal">És nem hagylak ott egyedül. Kísérlek azon az úton, ahol ezt a működést átfordítod — és eljutsz oda, ahol már a saját erősségeidre építve működsz, az életedben és a munkádban is.</p>
+
+      <p class="closing-line reveal-target fade-up reveal">Amikor ez megvan — nem kell többé találgatni.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — STORY -->
+<section id="story" style="background-color: rgb(212, 232, 240);">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-text">
+        <div class="section-head reveal-target slide-left reveal">
+          <span class="eyebrow" style="color: rgb(86, 154, 213)">Történetem</span>
+          <h2>Nem véletlenül lettem coach.</h2>
+          <span class="accent-line reveal"></span>
+        </div>
+        <p class="reveal-target fade-up">Éveken át dolgoztam szervezetekben, vezetőkkel, csapatokkal — és újra meg újra ugyanazokat a mintákat láttam. Tehetséges emberek, akik körbe-körbe futottak. Nem tudás hiányában. Hanem mert nem látták saját működésüket.</p>
+        <p class="reveal-target fade-up">Ez indított el. Ma objektív személyiségelemzéssel és kísérő coachingon keresztül segítem az embereket — egyéneket és szervezeteket egyaránt —, hogy kilépjenek ezekből a köreikből.</p>
+        <p class="reveal-target fade-up">Nem mint tanácsadó. Hanem mint társ a folyamatban.</p>
+
+        <div class="story-stats reveal-target fade-up">
+          <div class="stat" style="transition-delay: 0ms;"><div class="num">10+</div><div class="lbl" style="color: rgb(86, 154, 213)">Év tapasztalat</div></div>
+          <div class="stat" style="transition-delay: 90ms;"><div class="num">200+</div><div class="lbl" style="color: rgb(86, 154, 213)">Kísért ügyfél</div></div>
+          <div class="stat" style="transition-delay: 180ms;"><div class="num serif">Egyéni &amp; Céges</div><div class="lbl" style="color: rgb(86, 154, 213)">Tanácsadás</div></div>
+        </div>
+      </div>
+
+      <div class="portrait-wrap reveal-target fade-up reveal">
+        <div class="blob blob-bg" style="display:none">
+          <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path fill="#F7DCE0" d="M431,131c54,46 88,121 84,194c-4,73 -45,143 -106,184c-61,41 -141,53 -212,30c-71,-23 -132,-81 -154,-153c-22,-72 -5,-159 44,-217c49,-58 130,-87 207,-79c77,8 150,53 137,41Z"></path>
+          </svg>
+        </div>
+        <img src="erika.jpg" alt="Forray Erika portré" class="portrait">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-head reveal-target slide-left" style="text-align: center;">
+      <span class="eyebrow" style="color: rgb(86, 154, 213)">Mivel tudok segíteni</span>
+      <h2>Tanácsadási kínálat</h2>
+      <span class="accent-line" style="margin: 18px auto 0;"></span>
+    </div>
+
+    <div class="cards">
+      <div class="card reveal-target fade-up" style="transition-delay: 0ms;">
+        <span class="pill rose">Egyéni</span>
+        <div class="card-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="18" r="14"></circle>
+            <path d="M18 8 v3 M18 25 v3 M8 18 h3 M25 18 h3"></path>
+            <path d="M22.5 13.5 L19 19 L13.5 22.5 L17 17 Z" fill="#F7DCE0" stroke="none"></path>
+            <circle cx="18" cy="18" r="1.4" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <h3>Life &amp; Karriercoaching</h3>
+        <p>Ha körbe-körbe futsz — a karrieredben, a döntéseidben, az életedben. Együtt feltérképezzük, mi akadályoz, és visszairányítunk a saját önazonos működésed felé.</p>
+      </div>
+
+      <div class="card reveal-target fade-up" style="transition-delay: 90ms;">
+        <span class="pill petrol">Egyéni / Kis csapat</span>
+        <div class="card-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 26 L14 18 L19 23 L30 10"></path>
+            <path d="M22 10 H30 V18"></path>
+          </svg>
+        </div>
+        <h3>Business coaching</h3>
+        <p>Vállalkozóknak, vezetőknek, akik nagyobb tisztaságot és tudatosságot keresnek döntéseikben, csapatvezetésükben és növekedési útjukban.</p>
+      </div>
+
+      <div class="card reveal-target fade-up" style="transition-delay: 180ms;">
+        <span class="pill taupe" style="background-color: rgb(86, 154, 213)">Céges</span>
+        <div class="card-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="9" r="3"></circle>
+            <circle cx="8" cy="24" r="3"></circle>
+            <circle cx="28" cy="24" r="3"></circle>
+            <path d="M18 12 L9 21 M18 12 L27 21 M11 24 H25"></path>
+          </svg>
+        </div>
+        <h3>Szervezet- és céges kultúrafejlesztés</h3>
+        <p>Cégeknek, ahol a minták szervezeti szinten ismétlődnek. Segítek megérteni a csapat működési dinamikáját és kialakítani egy tudatosabb, hatékonyabb kultúrát.</p>
+      </div>
+    </div>
+
+    <div class="services-cta reveal-target fade-up">
+      <p class="ask">Nem vagy biztos, melyik illik hozzád?</p>
+      <a href="#contact" class="btn btn-primary">Írj, és kiderítjük együtt</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — TESTIMONIALS -->
+<section id="testimonials" style="background-color: rgb(212, 232, 240);">
+  <div class="container">
+    <div class="section-head reveal-target slide-left">
+      <span class="eyebrow" style="color: rgb(86, 154, 213)">Vélemények</span>
+      <h2>Amit ügyfeleim mondanak</h2>
+      <span class="accent-line"></span>
+    </div>
+
+    <div class="t-cards">
+      <article class="t-card reveal-target fade-up" style="transition-delay: 0ms;">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <p class="t-quote">„Azt hittem, a helyzetemen kell változtatni. Erika segített megérteni, hogy én magam vagyok az egyetlen változó, amin dolgoznom érdemes. Ez fordulópont volt.”</p>
+        <div class="meta">
+          <span class="avatar" aria-hidden="true">M</span>
+          <div>
+            <div class="t-name">Márton K.</div>
+            <div class="t-role">Vezető, tech szektor</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="t-card reveal-target fade-up" style="transition-delay: 90ms;">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <p class="t-quote">„Nem tanácsot kaptam — hanem tükröt. Az elemzés után sokkal érthetőbb lett, miért hozom újra és újra ugyanazokat a döntéseket.”</p>
+        <div class="meta">
+          <span class="avatar" aria-hidden="true">V</span>
+          <div>
+            <div class="t-name">Veronika Sz.</div>
+            <div class="t-role">Vállalkozó</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="t-card reveal-target fade-up" style="transition-delay: 180ms;">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <p class="t-quote">„A szervezetünk teljesen más lett, mióta együtt dolgoztunk Erikával. Nem csak én, az egész csapat másképp kommunikál, másképp dönt.”</p>
+        <div class="meta">
+          <span class="avatar" aria-hidden="true">P</span>
+          <div>
+            <div class="t-name">Péter B.</div>
+            <div class="t-role">Cégvezető</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="eyebrow wide reveal-target fade-up">Kapcsolat</span>
+    <h2 class="reveal-target fade-up">Ha eleged van abból, hogy próbálkozol — de nem érted, miért nem működik:</h2>
+    <p class="contact-sub reveal-target fade-up">Írj. A részleteket ott beszéljük meg.</p>
+
+    <div class="contact-cards reveal-target fade-up">
+      <a href="https://m.me/forrayerika" class="contact-card" target="_blank" rel="noopener">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 4 C7.4 4 3 8.6 3 14.2 C3 17.4 4.6 20.2 7 22 V26 L10.6 24 C11.7 24.3 12.8 24.4 14 24.4 C20.6 24.4 25 19.8 25 14.2 C25 8.6 20.6 4 14 4 Z"></path>
+          <path d="M8 16 L12.5 11.5 L15 14 L19.5 9.5"></path>
+        </svg>
+        <div class="lbl">Messenger</div>
+        <div class="sub">Privát üzenet</div>
+      </a>
+      <a href="https://wa.me/36306984383" class="contact-card" target="_blank" rel="noopener">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 3 C7.9 3 3 7.9 3 14 C3 16.2 3.7 18.3 4.8 20 L3 25 L8.2 23.4 C9.9 24.4 12 25 14 25 C20.1 25 25 20.1 25 14 C25 7.9 20.1 3 14 3 Z"></path>
+          <path d="M10 10.5 C10 9.7 10.4 9 11.2 9 H12 L13 12 L11.6 13 C12.3 14.6 13.5 15.8 15 16.5 L16 15.1 L19 16.1 V16.9 C19 17.7 18.3 18.1 17.5 18.1 C13.4 18.1 10 14.7 10 10.5 Z"></path>
+        </svg>
+        <div class="lbl">WhatsApp</div>
+        <div class="sub">+36 30 698 4383</div>
+      </a>
+      <a href="/cdn-cgi/l/email-protection#7a111b0a190915161b0e3a1c1508081b031f0813111b54120f" class="contact-card">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3.5" y="6" width="21" height="16" rx="2"></rect>
+          <path d="M3.5 8 L14 16 L24.5 8"></path>
+        </svg>
+        <div class="lbl">Email</div>
+        <div class="sub"><span class="__cf_email__" data-cfemail="b4dfd5c4d7c7dbd8d5c0f4d2dbc6c6d5cdd1c6dddfd59adcc1">[email&#160;protected]</span></div>
+      </a>
+    </div>
+
+    <p class="contact-closing reveal-target fade-up">Lehet másképp is működni. Jól. Önazonosan.</p>
+    <div class="contact-varlak reveal-target fade-up">Várlak.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="left">Forray Erika</div>
+      <div class="center">© 2025 Forray Erika — Life, Business &amp; Karriercoach</div>
+      <div class="right">
+        <a href="https://wa.me/36306984383" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3 C7.9 3 3 7.9 3 14 C3 16.2 3.7 18.3 4.8 20 L3 25 L8.2 23.4 C9.9 24.4 12 25 14 25 C20.1 25 25 20.1 25 14 C25 7.9 20.1 3 14 3 Z"></path>
+            <path d="M10 10.5 C10 9.7 10.4 9 11.2 9 H12 L13 12 L11.6 13 C12.3 14.6 13.5 15.8 15 16.5 L16 15.1 L19 16.1 V16.9 C19 17.7 18.3 18.1 17.5 18.1 C13.4 18.1 10 14.7 10 10.5 Z"></path>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/forrayerika" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="20" height="20" rx="5"></rect>
+            <circle cx="14" cy="14" r="4.5"></circle>
+            <circle cx="19.5" cy="8.5" r="0.9" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/share/p/1BFPVSH23L/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 8 H19.5 V4.5 H17 C14.8 4.5 13 6.3 13 8.5 V11 H10 V14.5 H13 V24 H16.5 V14.5 H19 L19.5 11 H16.5 V9 C16.5 8.4 16.7 8 17 8 Z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7d0fa10a/cloudflare-static/email-decode.min.js"></script><script>
+  // Page load animation — fire immediately if doc is already loaded
+  function markLoaded() { requestAnimationFrame(() => document.body.classList.add('loaded')); }
+  if (document.readyState === 'complete') markLoaded();
+  else window.addEventListener('load', markLoaded);
+
+  // Sticky nav + scroll progress + parallax
+  const nav = document.getElementById('nav');
+  const progress = document.getElementById('progress');
+  const heroBlob1 = document.getElementById('heroBlob1');
+  function onScroll() {
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 60);
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = Math.min(100, (y / max) * 100) + '%';
+    if (heroBlob1) heroBlob1.style.transform = `translateY(${y * 0.3}px)`;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal-target, .section-head, .accent-line').forEach((el) => io.observe(el));
+
+  // Stagger inside cards/lists
+  document.querySelectorAll('.cards, .t-cards, .dash-list, .story-stats').forEach((group) => {
+    [...group.children].forEach((child, i) => {
+      child.style.transitionDelay = (i * 90) + 'ms';
+    });
+  });
+
+  // Scroll spy
+  const sections = ['story', 'services', 'testimonials', 'contact'].map((id) => document.getElementById(id));
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach((a) => a.classList.toggle('active', a.dataset.target === id));
+      }
+    });
+  }, { threshold: 0.35, rootMargin: '-80px 0px -40% 0px' });
+  sections.forEach((s) => s && spy.observe(s));
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const overlay = document.getElementById('mobileOverlay');
+  const close = document.getElementById('mobileClose');
+  hamburger.addEventListener('click', () => overlay.classList.add('open'));
+  close.addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.querySelectorAll('.m-link').forEach((a) => a.addEventListener('click', () => overlay.classList.remove('open')));
+</script>
+
+
+</body></html>
